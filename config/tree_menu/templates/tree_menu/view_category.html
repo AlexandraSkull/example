@@ -1,0 +1,32 @@
+{% extends 'tree_menu/base_menu.html' %}
+
+{% block content %}
+<ul class="list-group list-group-flush">
+
+	{% for cat_item in categories %}
+		{% if cat_item.parent is None and cat_item != category.parent %}
+			<li class="list-group-item"><a href="{% url 'category' cat_item.slug %}">{{ cat_item.title }}</a></li>
+		{% endif %}
+
+		{%if cat_item == category.parent %}	
+			{% if cat_item.parent is None %}
+			<li class="list-group-item"><a href="{% url 'category' cat_item.slug %}">{{ cat_item.title }}</a></li>
+			{% endif %}
+		{% endif %}
+
+		{% if cat_item.parent == category.parent and not category.parent is None  %}
+			<ul><li class="list-group-item"><a href="{% url 'menu' %}">{{ cat_item.title }}</a></li></ul>		
+		{% endif %}
+
+		{%if cat_item.parent == category %}	
+			{% if child == True %}
+			<ul><li class="list-group-item"><a href="{% url 'category' cat_item.slug %}">{{ cat_item.title }}</a></li></ul>		
+			{% else %}
+				<ul><li class="list-group-item"><a href="{% url 'menu' %}">{{ cat_item.title }}</a></li></ul>	
+			{% endif %}
+			
+		{% endif %}
+
+	{% endfor %}
+</ul>					
+{% endblock %}

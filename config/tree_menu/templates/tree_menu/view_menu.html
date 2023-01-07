@@ -1,0 +1,16 @@
+{% extends 'tree_menu/base_menu.html' %}
+
+
+{% block content %}
+    {% load menu_tags %}
+    {% get_meta_categories as categories %}
+    <ul class="list-group list-group-flush">
+
+    {% for category in categories %}
+
+        <li class="list-group-item"><a href="{% url 'category' category.slug %}">{{ category.title }}</a></li>
+
+    {% endfor %}
+    
+    </ul>
+{% endblock %}
